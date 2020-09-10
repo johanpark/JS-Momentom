@@ -1,12 +1,11 @@
 body{
     background-color: aliceblue;
-}
-h1{
-    color: cornflowerblue;
+    color: #34495e;
+    transition: color 0.5s ease-in-out;
 }
 
-.form
-.grettings{
+.form,
+.greetings{
     display: none;
 }
 
