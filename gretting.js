@@ -1,8 +1,21 @@
 const form = document.querySelector(".js-form"),
     input = form.querySelector("input"),
-    gretting =document.querySelector(".js-grettings"), 
-    USER_LS ="currentUser",
-    SHOWING_CN ="showing";
+    gretting =document.querySelector(".js-grettings");
+
+const  USER_LS ="currentUser",
+        SHOWING_CN ="showing";
+
+function handleSubmit(event){
+    event.preventDefault();
+    const currentValue = input.value;
+    paintGretting(currentValue);
+}
+
+function askForName()
+{
+    form.classList.add(SHOWING_CN);
+    form.addEventListener("submit", handleSubmit);
+}
 
 function paintGretting(text){
     form.classList.remove(SHOWING_CN);
@@ -12,9 +25,9 @@ function paintGretting(text){
 
 function loadName()
 {
-    const currentUser  = localStorage.getItem("USRT_LS");
-    if(currentUser === NULL){
-       
+    const currentUser  = localStorage.getItem("USER_LS");
+    if(currentUser === null){
+       askForName();
     }
     else{
         paintGretting(currentUser);
@@ -23,6 +36,7 @@ function loadName()
 
 function init()
 {
- loadName();
+    loadName();
 }
+
 init();
