@@ -3,9 +3,22 @@ const Todoform = document.querySelector(".js-TodoForm"),
         TodoList = document.querySelector(".js-TodoList");
 
 const  TODO_LS = "Todos";
-const TodoArr = [];
+let TodoArr = [];
 
-function saveTodos()
+
+function DeleteTodo(event)
+{
+    const btn = event.target;
+    const li = btn.parentNode;
+    TodoList.removeChild(li);
+    const CleanTodos = TodoArr.filter(function(Todo){
+        return Todo.id !== parseInt(li.id);
+    });
+    TodoArr = CleanTodos;
+    SaveTodos();
+}
+
+function SaveTodos()
 { 
     localStorage.setItem(TODO_LS, JSON.stringify(TodoArr));
 }
@@ -15,6 +28,7 @@ function PaintTodo(text)
     const li = document.createElement("li");
     const delBtn = document.createElement("button");
     delBtn.innerText ="❌";
+    delBtn.addEventListener("click", DeleteTodo);
     const span = document.createElement("span");
     span.innerText = text;
     const newId = TodoArr.length + 1;
@@ -28,7 +42,7 @@ function PaintTodo(text)
         id : newId
         };
         TodoArr.push(TodoObj);
-        saveTodos()
+        SaveTodos()
 }
 
 function HandleSubmit(event)
@@ -44,7 +58,10 @@ function loadTodos()
     const LoadedTodos = localStorage.getItem(TODO_LS);
     if(LoadedTodos !== null)
     {
-        console.log(loadTodos);
+       const parsedTodos = JSON.parse(LoadedTodos);
+        parsedTodos.forEach(function(Todo){
+            PaintTodo(Todo.text);
+        });
     }
 }
 
