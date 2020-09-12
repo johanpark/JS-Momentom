@@ -39,18 +39,18 @@ function HandleSubmit(event)
     TodoInput.value ="";
 }
 
-function loadTOdos()
+function loadTodos()
 {
     const LoadedTodos = localStorage.getItem(TODO_LS);
     if(LoadedTodos !== null)
     {
-
+        console.log(loadTodos);
     }
 }
 
 function init()
 {
-    loadTOdos();
+    loadTodos();
     Todoform.addEventListener("submit", HandleSubmit);
 }
 init();
